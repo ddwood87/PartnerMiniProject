@@ -1,6 +1,12 @@
 # Compiled class file
 *.class
 
+# Eclipse project file
+*.project
+
+# JPA Persistence file
+persistence.xml
+
 # Log file
 *.log
 
