@@ -18,14 +18,14 @@ public class Player {
 	private String fname;
 	@Column(name="last_name")
 	private String lname;
-	@Column(name="first_name")
+	@Column(name="user_name", unique = true)
 	private String username;
+	
 	public Player() {
 		super();
 	}
-	public Player(int id, String fname, String lname, String username) {
+	public Player(String fname, String lname, String username) {
 		super();
-		this.id = id;
 		this.fname = fname;
 		this.lname = lname;
 		this.username = username;
@@ -58,6 +58,19 @@ public class Player {
 	public String toString() {
 		return "Player [id=" + id + ", fname=" + fname + ", lname=" + lname + ", username=" + username + "]";
 	}
-	
+	@Override
+	public boolean equals(Object o) {
+		if(!o.getClass().equals(this.getClass())) {
+			return false;
+		}else {
+			Player p = (Player)o;
+			if(p.getFname().equals(this.fname) &&
+				p.getLname().equals(this.lname)&&
+				p.getUsername().equals(this.username)) {
+				return true;
+			}
+			return false;
+		}
+	}
 	
 }
