@@ -20,13 +20,13 @@ public class PlayerGroup {
 	private int id;
 	@ManyToMany
 	private List<Player> players;
-	@OneToMany
-	private List<IGame> games;
+	@OneToMany(mappedBy="players")
+	private List<Game> games;
 	
 	public PlayerGroup() {
 		super();
 	}
-	public PlayerGroup(int id, List<Player> players, List<IGame> games) {
+	public PlayerGroup(int id, List<Player> players, List<Game> games) {
 		super();
 		this.id = id;
 		this.players = players;
@@ -44,10 +44,10 @@ public class PlayerGroup {
 	public void setPlayers(List<Player> players) {
 		this.players = players;
 	}
-	public List<IGame> getGames() {
+	public List<Game> getGames() {
 		return games;
 	}
-	public void setGames(List<IGame> games) {
+	public void setGames(List<Game> games) {
 		this.games = games;
 	}
 	@Override

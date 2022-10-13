@@ -3,6 +3,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * @author dominicwood - ddwood2@dmacc.edu
@@ -10,15 +12,16 @@ import javax.persistence.Id;
  * Oct 11, 2022
  */
 @Entity
+@Table(uniqueConstraints= {@UniqueConstraint(columnNames= {"username"})})
 public class Player {
 	@Id
 	@GeneratedValue
 	private int id;
-	@Column(name="first_name")
+	@Column(name="fname")
 	private String fname;
-	@Column(name="last_name")
+	@Column(name="lname")
 	private String lname;
-	@Column(name="user_name", unique = true)
+	@Column(name="username")
 	private String username;
 	
 	public Player() {
@@ -60,7 +63,7 @@ public class Player {
 	}
 	@Override
 	public boolean equals(Object o) {
-		if(!o.getClass().equals(this.getClass())) {
+		if(o == null || !o.getClass().equals(this.getClass())) {
 			return false;
 		}else {
 			Player p = (Player)o;

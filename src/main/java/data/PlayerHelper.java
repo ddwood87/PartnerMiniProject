@@ -17,7 +17,7 @@ import model.Player;
  * Oct 11, 2022
  */
 public class PlayerHelper {
-	private static EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("GameArcade");
+	private static EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("PartnerMiniProject");
 	public PlayerHelper() {	}
 	
 	public List<Player> listAllPlayers(){
@@ -31,18 +31,23 @@ public class PlayerHelper {
 			em.persist(player);
 			em.getTransaction().commit();
 			em.close();
-		}
-		
+		}		
 	}
 	public void deletePlayer(Player player) {
+		Player deletePlayer;
 		if(playerExists(player)) {
-			EntityManager em = emfactory.createEntityManager();
-			Player deletePlayer = em.find(Player.class, player);
-			em.getTransaction().begin();
-			em.remove(deletePlayer);
-			em.getTransaction().commit();
-			em.close();
-		}		
+			if(player.getId() != 0) {
+				deletePlayer = getPlayerById(player.getId());
+			}else {
+				deletePlayer = getExisting(player);
+			}
+		}else {	return; }
+		EntityManager em = emfactory.createEntityManager();
+		em.getTransaction().begin();
+		Player p = em.merge(deletePlayer);
+		em.remove(p);
+		em.getTransaction().commit();
+		em.close();
 	}
 	public Player getPlayerById(int id) {
 		EntityManager em = emfactory.createEntityManager();
@@ -51,7 +56,7 @@ public class PlayerHelper {
 	}
 	public boolean playerExists(Player player) {
 		EntityManager em = emfactory.createEntityManager();
-		TypedQuery<Player> query = em.createQuery("SELECT p FROM Player p WHERE p.fname = :fname, p.lname = :lname, p.username = :username", Player.class);
+		TypedQuery<Player> query = em.createQuery("SELECT p FROM Player p WHERE p.fname = :fname AND p.lname = :lname AND p.username = :username", Player.class);
 		query.setParameter("fname", player.getFname());
 		query.setParameter("lname", player.getLname());
 		query.setParameter("username", player.getUsername());
@@ -65,7 +70,7 @@ public class PlayerHelper {
 	public Player getExisting(Player player) {
 		if(playerExists(player)) {
 			EntityManager em = emfactory.createEntityManager();
-			TypedQuery<Player> query = em.createQuery("SELECT p FROM Player p WHERE  p.fname = :fname, p.lname = :lname, p.username = :username", Player.class);
+			TypedQuery<Player> query = em.createQuery("SELECT p FROM Player p WHERE  p.fname = :fname AND p.lname = :lname AND p.username = :username", Player.class);
 			query.setParameter("fname", player.getFname());
 			query.setParameter("lname", player.getLname());
 			query.setParameter("username", player.getUsername());

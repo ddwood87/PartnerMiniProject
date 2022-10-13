@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.IGame;
+import model.Game;
 import model.RockPaperScissors;
 
 /**
@@ -16,7 +16,7 @@ import model.RockPaperScissors;
 @WebServlet({ "/RockPaperScissorsServlet", "/rockpaperscissorsservlet" })
 public class RockPaperScissorsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private IGame rps = new RockPaperScissors();
+    private Game rps = new RockPaperScissors();
     /**
      * @see HttpServlet#HttpServlet()
      */

@@ -1,57 +1,41 @@
 package model;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
+
 /**
  * @author dominicwood - ddwood2@dmacc.edu
  * CIS175 - Fall 2022
  * Oct 11, 2022
  */
-public class RockPaperScissors implements IGame {
-	private int id;
-	private PlayerGroup players;
-	private int player1score;
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorValue("RockPaperScissors")
+public class RockPaperScissors extends Game {
+	
+	private int player1score;	
 	private int player2score;
 
 	public RockPaperScissors() {
 		super();
 	}
 	
-	public RockPaperScissors(int id, PlayerGroup players, int player1score, int player2score) {
-		super();
-		this.id = id;
-		this.players = players;
+	public RockPaperScissors(PlayerGroup players, int player1score, int player2score) {
+		super(players);
 		this.player1score = player1score;
 		this.player2score = player2score;
 	}
 
 	@Override
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	@Override
-	public int getId() {
-		return id;
-	}
-
-	@Override
-	public void setPlayers(PlayerGroup players) throws Exception {
+	public void setPlayers(PlayerGroup players) {
 		if(players.getPlayers().size() <= 2) {
-			this.players = players;
+			super.setPlayers(players);
 		}
-		else{ throw new Exception("Must have two players or less to play."); }
+		else{ System.out.println("There are too many players for this game."); }
 	}
-
-	@Override
-	public PlayerGroup getPlayers() {
-		return players;
-	}
-
-	@Override
-	public void play() {
-		player1score = 0;
-		player2score = 0;
-		
-		//Call game servlet
-	}
-
 }
