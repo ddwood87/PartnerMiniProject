@@ -76,9 +76,7 @@ public class PlayerHelperTest {
 	}
 	@Test
 	public void getPlayerById() {
-		if(!ph.playerExists(player)) {
-			addPlayer();
-		}
+		addPlayer();
 		Player p = getPlayer();
 		Player result = ph.getPlayerById(p.getId());
 		assertNotNull(result);
