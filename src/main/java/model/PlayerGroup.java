@@ -26,11 +26,9 @@ public class PlayerGroup {
 	public PlayerGroup() {
 		super();
 	}
-	public PlayerGroup(int id, List<Player> players, List<Game> games) {
+	public PlayerGroup(List<Player> players) {
 		super();
-		this.id = id;
 		this.players = players;
-		this.games = games;
 	}
 	public int getId() {
 		return id;
