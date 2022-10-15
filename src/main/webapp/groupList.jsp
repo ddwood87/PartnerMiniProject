@@ -14,7 +14,7 @@
 				<tr>
 					<td>${currentgroup.id}</td>
 				</tr>
-				<c:forEach var="playerlist" items="${currentgroup.player}">
+				<c:forEach var="playerlist" items="${currentgroup.players}">
 					<tr>
 						<td></td>
 						<td>Player Id: ${playerlist.id}</td>
