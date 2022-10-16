@@ -89,5 +89,11 @@ public class PlayerGroupHelper {
 			PlayerGroup result = query.getSingleResult();
 			return result;
 		} else  {return null; }
-	}	
+	}
+	
+	public List<PlayerGroup> listAllGroups(){
+		EntityManager em = emfactory.createEntityManager();
+		List<PlayerGroup> allGroups = em.createQuery("Select p from PlayerGroup p").getResultList();
+		return allGroups;
+	}
 }

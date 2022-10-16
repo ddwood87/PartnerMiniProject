@@ -22,7 +22,8 @@ public class PlayerHelper {
 	
 	public List<Player> listAllPlayers(){
 		EntityManager em = emfactory.createEntityManager();
-		return em.createQuery("SELECT p FROM Player p", Player.class).getResultList();
+		List<Player> allPlayers = em.createQuery("SELECT p FROM Player p").getResultList();
+		return allPlayers;
 	}
 	public void addPlayer(Player player){
 		if(!playerExists(player)) {
