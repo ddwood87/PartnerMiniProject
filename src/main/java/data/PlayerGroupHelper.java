@@ -32,6 +32,7 @@ public class PlayerGroupHelper {
 		List<PlayerGroup> result = query.getResultList();
 		if(result == null) {return false;}
 		for(PlayerGroup g : result)	{
+			g = convertLists(g);
 			if(playerGroup.equals(g)) {
 				return true;
 			}
