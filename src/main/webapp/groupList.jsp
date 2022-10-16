@@ -9,28 +9,32 @@
 </head>
 <body>
 	<form method="post">
-		<table>
+		
 			<c:forEach items="${requestScope.allGroups}" var="currentgroup">
-				<tr>
-					<td><h3>Group Id: ${currentgroup.id}</h3></td>
-				</tr>
-				<c:forEach var="currentplayer" items="${currentgroup.players}">
+				<h3>Group Id: ${currentgroup.id}</h3>
+				<table>
 					<tr>
-						<td>Player Id: ${currentplayer.id}</td>
+						<td>Player Id:</td>
+						<td>Player name:</td>
+						<td>Player user name:</td>
 					</tr>
+					
+					<c:forEach var="currentplayer" items="${currentgroup.players}">
+					
 					<tr>
-						<td>Player name: ${currentplayer.fname} ${currentplayer.lname}</td>
+						<td>${currentplayer.id}</td>
+						<td>${currentplayer.fname} ${currentplayer.lname}</td>
+						<td>${currentplayer.username}</td>
 					</tr>
-					<tr>
-						<td>Player user name: ${currentplayer.username}</td>
-					</tr>
-					<tr>
-						<td><br /></td>
-					</tr>
-				</c:forEach>
+				
+					</c:forEach>
+					
+				</table>
 			</c:forEach>
-		</table>
 	</form>
-	<a href="index.html">Add new players</a>
+	<p><a href="index.html">Add a new player</a></p>
+	<p><a href="listPlayersServlet">Players list</a></p>
+	<p><a href="listGroupsServlet">Groups list</a></p>
+	<p><a href="addPlayersForGroupServlet">Create a new group</a></p>
 </body>
 </html>

@@ -76,14 +76,8 @@ public class PlayerGroup {
 		}
 		else {
 			PlayerGroup g = (PlayerGroup)o;
-			List<Player> pl = players;
-			pl.removeAll(g.getPlayers());
-			if(pl.isEmpty()) {
-				List<Game> gl = games;
-				gl.removeAll(g.getGames());
-				if(pl.isEmpty()) {
-					result = true;
-				}
+			if(g.getPlayers().equals(players) && g.getGames().equals(games)) {
+				result = true;
 			}
 		}
 		return result;

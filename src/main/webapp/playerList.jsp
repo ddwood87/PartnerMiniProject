@@ -10,22 +10,26 @@
 <body>
 	<form method="post">
 		<table>
+			<tr>
+				<td>Player Id:</td>
+				<td>Player name:</td>
+				<td>Player user name:</td>
+			</tr>
 			<c:forEach items="${requestScope.allPlayers}" var="currentplayer">
-				<tr>
-					<td>Player Id: ${currentplayer.id}</td>
-				</tr>
-				<tr>
-					<td>Player name: ${currentplayer.fname} ${currentplayer.lname}</td>
-				</tr>
-				<tr>
-					<td>Player user name: ${currentplayer.username}</td>
-				</tr>
-				<tr>
-					<td><br /></td>
-				</tr>
+				
+			<tr>
+				<td>${currentplayer.id}</td>
+				<td>${currentplayer.fname} ${currentplayer.lname}</td>
+				<td>${currentplayer.username}</td>
+			</tr>
+			
 			</c:forEach>
+			
 		</table>
 	</form>
-	<a href="index.html">Add a new player</a>
+	<p><a href="index.html">Add a new player</a></p>
+	<p><a href="listPlayersServlet">Players list</a></p>
+	<p><a href="listGroupsServlet">Groups list</a></p>
+	<p><a href="addPlayersForGroupServlet">Create a new group</a></p>
 </body>
 </html>

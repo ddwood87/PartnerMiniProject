@@ -60,8 +60,26 @@ public class PlayerHelper {
 	}
 	public Player getPlayerById(int id) {
 		EntityManager em = emfactory.createEntityManager();
-		Player result = em.find(Player.class, id);
+		TypedQuery<Player> query = em.createQuery("SELECT p FROM Player p WHERE p.id = :id",Player.class);
+		query.setParameter("id", id);
+		Player result = query.getSingleResult();
+		result = em.merge(result);
+		result = convertLists(result);
 		return result;
+	}
+	//convert Vector objects to list
+	//why does JPA query return class properties as Vector rather than a list type?
+	private Player convertLists(Player player) {
+		ArrayList<PlayerGroup> result;
+		if(!player.getGroups().getClass().equals(ArrayList.class)) {
+			List<PlayerGroup> gl = player.getGroups();
+			result = new ArrayList<PlayerGroup>();
+			for(PlayerGroup g : gl) {
+				result.add(g);
+			}
+		}else {result = (ArrayList<PlayerGroup>) player.getGroups();}
+		player.setGroups(result);
+		return player;
 	}
 	public boolean playerExists(Player player) {
 		EntityManager em = emfactory.createEntityManager();

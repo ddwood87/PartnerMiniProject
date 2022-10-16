@@ -17,6 +17,9 @@
 			
 		</select> <br /> <input type="submit" value="Create group">
 	</form>
-	<a href="index.html">Add new players</a>
+	<p><a href="index.html">Add a new player</a></p>
+	<p><a href="listPlayersServlet">Players list</a></p>
+	<p><a href="listGroupsServlet">Groups list</a></p>
+	<p><a href="addPlayersForGroupServlet">Create a new group</a></p>
 </body>
 </html>
