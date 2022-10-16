@@ -32,10 +32,10 @@ public class listGroupsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		List<PlayerGroup> groups = pgh.listAllGroups();
-        request.setAttribute("groups", groups);
-        this.getServletContext().getRequestDispatcher("groupList.jsp");
+		response.getWriter().append("Served at: ").append(request.getContextPath());	
+		List<PlayerGroup> allGroups = pgh.listAllGroups();
+        request.setAttribute("allGroups", allGroups);
+        getServletContext().getRequestDispatcher("/groupList.jsp").forward(request, response);;
 	}
 
 	/**

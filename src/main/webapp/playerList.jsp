@@ -10,7 +10,7 @@
 <body>
 	<form method="post">
 		<table>
-			<c:forEach items="${requestScope.players}" var="currentplayer">
+			<c:forEach items="${requestScope.allPlayers}" var="currentplayer">
 				<tr>
 					<td>Player Id: ${currentplayer.id}</td>
 				</tr>
@@ -19,6 +19,9 @@
 				</tr>
 				<tr>
 					<td>Player user name: ${currentplayer.username}</td>
+				</tr>
+				<tr>
+					<td><br /></td>
 				</tr>
 			</c:forEach>
 		</table>
