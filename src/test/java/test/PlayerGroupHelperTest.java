@@ -2,13 +2,17 @@ package test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import org.eclipse.persistence.internal.jpa.parsing.EqualsAssignmentNode;
+import org.eclipse.persistence.internal.queries.ContainerPolicy;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +35,7 @@ public class PlayerGroupHelperTest {
 	PlayerGroup playerGroup;
 	EntityManager em;
 	static EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("PartnerMiniProject");
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -43,7 +48,9 @@ public class PlayerGroupHelperTest {
 		em = emfactory.createEntityManager();
 		addPlayer(player1);
 		addPlayer(player2);
-		playerList = em.createQuery("SELECT p FROM Player p", Player.class).getResultList();
+		ContainerPolicy.setDefaultContainerClass(ArrayList.class);
+		TypedQuery<Player> query = em.createQuery("SELECT p FROM Player p", Player.class);
+		playerList = query.getResultList();
 		playerGroup = new PlayerGroup(playerList);
 	}
 	public void addPlayer(Player player) {
@@ -54,6 +61,9 @@ public class PlayerGroupHelperTest {
 	public void removePlayer(Player player) {		
 		em.getTransaction().begin();
 		Player p = em.merge(player);
+		for(PlayerGroup g : p.getGroups()) {
+			g.removePlayer(p);
+		}
 		em.remove(p);
 		em.getTransaction().commit();
 		player.setId(0);
@@ -64,33 +74,22 @@ public class PlayerGroupHelperTest {
 		em.getTransaction().commit();
 	}
 	public PlayerGroup getGroup() {
-		TypedQuery<PlayerGroup> query = em.createQuery("SELECT g FROM PlayerGroup g WHERE g.players = :players", PlayerGroup.class);
-		query.setParameter("players", playerList);
-		PlayerGroup result = query.getSingleResult();
-		return result;
+		TypedQuery<PlayerGroup> query = em.createQuery("SELECT g FROM PlayerGroup g", PlayerGroup.class);
+		return query.getSingleResult();
 	}
 	public void removeGroup() {
 		em.getTransaction().begin();
-		em.merge(playerGroup);
+		playerGroup = em.merge(playerGroup);
 		em.remove(playerGroup);
 		em.getTransaction().commit();
 	}
-	/*
-	public Player getPlayer(int id) {
-		TypedQuery<Player> query = em.createQuery("SELECT p FROM Player p WHERE p.fname = :fname AND p.lname = :lname AND p.username = :username",Player.class);
-		query.setParameter("fname", player.getFname());
-		query.setParameter("lname", player.getLname());
-		query.setParameter("username", player.getUsername());
-		Player result = query.getSingleResult();
-		return result;
-	}
-	*/
 	
 	@Test
 	public void addGroup_validGroup(){
 		assertFalse(pgh.groupExists(playerGroup));
 		pgh.addGroup(playerGroup);
 		assertTrue(pgh.groupExists(playerGroup));
+		removeGroup();
 		System.out.println("addGroup_validGroup");
 	}
 	@Test

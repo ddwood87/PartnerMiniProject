@@ -14,14 +14,14 @@ import javax.persistence.MappedSuperclass;
  * CIS175 - Fall 2022
  * Oct 11, 2022
  */
-@Entity
-@MappedSuperclass
-@DiscriminatorColumn(name="GAME_TYPE", discriminatorType = DiscriminatorType.STRING)
+//@Entity
+//@MappedSuperclass
+//@DiscriminatorColumn(name="GAME_TYPE", discriminatorType = DiscriminatorType.STRING)
 public class Game {
-	@Id
-	@GeneratedValue
+	//@Id
+	//@GeneratedValue
 	private int id;
-	@ManyToOne
+	//@ManyToOne
 	private PlayerGroup players;
 	
 	public Game() {}
