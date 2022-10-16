@@ -13,9 +13,9 @@ import javax.persistence.MappedSuperclass;
  * CIS175 - Fall 2022
  * Oct 11, 2022
  */
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorValue("RockPaperScissors")
+//@Entity
+//@Inheritance(strategy = InheritanceType.JOINED)
+//@DiscriminatorValue("RockPaperScissors")
 public class RockPaperScissors extends Game {
 	
 	private int player1score;	

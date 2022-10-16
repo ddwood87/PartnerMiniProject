@@ -1,5 +1,6 @@
 package data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,8 +9,10 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl;
+import org.eclipse.persistence.internal.queries.ContainerPolicy;
 
 import model.Player;
+import model.PlayerGroup;
 
 /**
  * @author dominicwood - ddwood2@dmacc.edu
@@ -18,7 +21,7 @@ import model.Player;
  */
 public class PlayerHelper {
 	private static EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("PartnerMiniProject");
-	public PlayerHelper() {	}
+	public PlayerHelper() {	ContainerPolicy.setDefaultContainerClass(ArrayList.class);}
 	
 	public List<Player> listAllPlayers(){
 		EntityManager em = emfactory.createEntityManager();
@@ -46,6 +49,11 @@ public class PlayerHelper {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
 		Player p = em.merge(deletePlayer);
+		List<PlayerGroup> l = p.getGroups();
+		for(PlayerGroup g : l) {
+			g.removePlayer(p);
+		}
+		p = em.merge(p);
 		em.remove(p);
 		em.getTransaction().commit();
 		em.close();

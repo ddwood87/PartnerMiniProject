@@ -1,8 +1,16 @@
 package model;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -15,7 +23,7 @@ import javax.persistence.UniqueConstraint;
 @Table(uniqueConstraints= {@UniqueConstraint(columnNames= {"username"})})
 public class Player {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
 	@Column(name="fname")
 	private String fname;
@@ -23,15 +31,20 @@ public class Player {
 	private String lname;
 	@Column(name="username")
 	private String username;
+	@JoinColumn(table="player_playergroup", name="groups_ID")
+	@ManyToMany(mappedBy = "players", cascade= {CascadeType.REFRESH}, fetch=FetchType.EAGER)
+	private List<PlayerGroup> groups;
 	
 	public Player() {
 		super();
+		groups = new ArrayList<PlayerGroup>();
 	}
 	public Player(String fname, String lname, String username) {
 		super();
 		this.fname = fname;
 		this.lname = lname;
 		this.username = username;
+		groups = new ArrayList<PlayerGroup>();
 	}
 	public int getId() {
 		return id;
@@ -56,6 +69,12 @@ public class Player {
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	public List<PlayerGroup> getGroups() {
+		return groups;
+	}
+	public void setGroups(List<PlayerGroup> groups) {
+		this.groups = groups;
 	}
 	@Override
 	public String toString() {
