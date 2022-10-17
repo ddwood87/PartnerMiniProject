@@ -141,7 +141,7 @@ public class PlayerGroupHelper {
 	public void updateGroup(PlayerGroup groupToEdit) {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
-		em.persist(groupToEdit);
+		em.merge(groupToEdit);
 		em.getTransaction().commit();
 		em.close();
 	}
