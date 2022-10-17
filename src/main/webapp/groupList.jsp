@@ -8,9 +8,10 @@
 <title>List of groups</title>
 </head>
 <body>
-	<form method="post">
+	<form method="post" action="groupNaviationServlet">
 		
 			<c:forEach items="${requestScope.allGroups}" var="currentgroup">
+				<td><input type ="radio" name ="id" value = "${currentgroup.id}"></td>
 				<h3>Group Id: ${currentgroup.id}</h3>
 				<table>
 					<tr>
@@ -31,6 +32,8 @@
 					
 				</table>
 			</c:forEach>
+			<input type="submit" value="edit" name="action"> 
+			<input type="submit" value="delete" name="action"> 
 	</form>
 	<p><a href="index.html">Add a new player</a></p>
 	<p><a href="listPlayersServlet">Players list</a></p>

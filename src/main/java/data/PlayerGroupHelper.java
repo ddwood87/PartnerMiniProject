@@ -137,4 +137,12 @@ public class PlayerGroupHelper {
 		List<PlayerGroup> allGroups = em.createQuery("Select p from PlayerGroup p").getResultList();
 		return allGroups;
 	}
+	
+	public void updateGroup(PlayerGroup groupToEdit) {
+		EntityManager em = emfactory.createEntityManager();
+		em.getTransaction().begin();
+		em.persist(groupToEdit);
+		em.getTransaction().commit();
+		em.close();
+	}
 }
