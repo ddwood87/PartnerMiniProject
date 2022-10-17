@@ -56,7 +56,7 @@ public class GroupNavigationServlet extends HttpServlet {
 				}
 				getServletContext().getRequestDispatcher("/editgroup.jsp").forward(request, response);
 			} catch (NumberFormatException e) {
-				getServletContext().getRequestDispatcher("/viewAllListsServlet").forward(request, response);
+				getServletContext().getRequestDispatcher("/listGroupsServlet").forward(request, response);
 			}
 		} else if (action.equals("delete")) {
 			try {

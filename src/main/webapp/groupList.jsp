@@ -8,11 +8,10 @@
 <title>List of groups</title>
 </head>
 <body>
-	<form method="post" action="groupNaviationServlet">
+	<form method="post" action="groupNavigationServlet">
 		
 			<c:forEach items="${requestScope.allGroups}" var="currentgroup">
-				<td><input type ="radio" name ="id" value = "${currentgroup.id}"></td>
-				<h3>Group Id: ${currentgroup.id}</h3>
+				<h3><input type ="radio" name ="id" value = "${currentgroup.id}">Group Id: ${currentgroup.id}</h3>
 				<table>
 					<tr>
 						<td>Player Id:</td>

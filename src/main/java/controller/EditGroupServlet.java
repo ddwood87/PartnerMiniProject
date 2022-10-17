@@ -61,7 +61,7 @@ public class EditGroupServlet extends HttpServlet {
 			groupToEdit.setPlayers(selectedPlayersInList);
 		}
 		pgh.updateGroup(groupToEdit);
-		getServletContext().getRequestDispatcher("/listGroupServlet").forward(request, response);
+		getServletContext().getRequestDispatcher("/listGroupsServlet").forward(request, response);
 	}
 
 }
